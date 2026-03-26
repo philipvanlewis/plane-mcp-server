@@ -202,6 +202,18 @@ src/
     └── logger.ts       # Stderr logger
 ```
 
+## Known Issues / API Quirks
+
+### Plane v1 API ignores query parameter filters
+
+The `/api/v1/workspaces/{slug}/projects/{id}/issues/` endpoint ignores `?state=`, `?assignees=`, and other query parameter filters — it always returns **all** items regardless of the parameters passed. This is a Plane CE API bug (confirmed on v0.23).
+
+**Impact:** Any automation that needs filtered results (e.g., "get all Todo items assigned to user X") must fetch all items and filter client-side.
+
+**Workaround:** The `plane-work-item-list` tool accepts `state`, `priority`, `assignee`, and `label` filter parameters and applies them client-side after fetching the full list. If you are building your own automation on top of the Plane API, you will need to do the same.
+
+**Discovered:** 2026-03-26, when a scheduled trigger failed to pick up a specific work item because the API returned unfiltered results and the caller trusted the query parameters.
+
 ## Requirements
 
 - Node.js 18+
