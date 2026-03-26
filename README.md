@@ -2,7 +2,7 @@
 
 A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server for [Plane CE](https://plane.so/) — the open-source project management tool.
 
-**43 tools** covering pages, assets, work items, projects, modules, cycles, labels, states, and members.
+**51 tools** covering pages, assets, work items, projects, modules, cycles, labels, states, members, and instance/workspace customization.
 
 ## Key Features
 
@@ -12,14 +12,15 @@ A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP)
 - **Content append** — Add to existing pages without replacing everything
 - **Full CRUD** — Complete management for work items, projects, modules, cycles, labels, and states
 - **Comments & activity** — Add comments to issues, view activity history
-- **Dual auth** — v1 API key for public endpoints + session auth for internal APIs (pages, assets)
+- **Instance & workspace customization** — Manage instance config, workspace settings, logo uploads, user profiles
+- **Dual auth** — v1 API key for public endpoints + session auth for internal APIs (pages, assets, customization)
 
 ## Quick Start
 
 ### 1. Install
 
 ```bash
-git clone https://github.com/yourusername/plane-mcp-server.git
+git clone https://github.com/philipvanlewis/plane-mcp-server.git
 cd plane-mcp-server
 npm install
 npm run build
@@ -57,7 +58,7 @@ Add to your `.mcp.json`:
 }
 ```
 
-## Tools (43)
+## Tools (51)
 
 ### Pages (9)
 | Tool | Description |
@@ -117,6 +118,19 @@ Add to your `.mcp.json`:
 | `plane-cycle-add-issues` | Add issues to a cycle |
 | `plane-cycle-remove-issue` | Remove an issue from a cycle |
 
+### Customization (8)
+| Tool | Description |
+|------|-------------|
+| `plane-instance-get` | Get instance settings (name, version, edition, domain, auth config) |
+| `plane-instance-update` | Update instance name, domain, telemetry |
+| `plane-instance-config-get` | Get all 32 instance config keys (auth, SMTP, AI, Unsplash, etc.) |
+| `plane-instance-config-update` | Update instance config keys (enable signup, SMTP, AI provider, etc.) |
+| `plane-workspace-get` | Get workspace settings (name, slug, logo, org size, timezone) |
+| `plane-workspace-update` | Update workspace name, org size, timezone |
+| `plane-workspace-logo-upload` | Upload workspace logo via presigned URL flow |
+| `plane-user-profile-get` | Get current user profile (display name, avatar, theme) |
+| `plane-user-profile-update` | Update display name and theme preferences |
+
 ### States (2) · Labels (3) · Members (2) · Utility (1)
 | Tool | Description |
 |------|-------------|
@@ -133,7 +147,7 @@ Add to your `.mcp.json`:
 
 When you write content in Markdown, the server automatically:
 
-1. Converts Markdown → HTML using [marked](https://marked.js.org/)
+1. Converts Markdown to HTML using [marked](https://marked.js.org/)
 2. Adds Plane's TipTap editor CSS classes (`editor-heading-block`, `editor-paragraph-block`, etc.)
 3. Passes the formatted HTML to Plane's API
 
@@ -150,22 +164,42 @@ Images use Plane's `<image-component>` custom element:
 
 The server handles the full presigned upload flow (create record → upload to MinIO/S3 → mark complete) in a single tool call.
 
+### Instance Configuration
+
+The customization tools give full control over the Plane CE instance:
+
+```
+Instance settings:  plane-instance-get / plane-instance-update
+32 config keys:     plane-instance-config-get / plane-instance-config-update
+Workspace branding: plane-workspace-update / plane-workspace-logo-upload
+User preferences:   plane-user-profile-get / plane-user-profile-update
+```
+
+Config key categories: `AUTHENTICATION`, `GOOGLE`, `GITHUB`, `GITLAB`, `GITEA`, `SMTP`, `AI`, `UNSPLASH`, `WORKSPACE_MANAGEMENT`, `INTERCOM`
+
 ## Architecture
 
 ```
 src/
-├── index.ts          # MCP server bootstrap (stdio transport)
-├── config.ts         # Zod-validated env config
-├── client.ts         # Dual-auth HTTP client (v1 API key + session cookies)
-├── tools/            # 10 tool modules, 43 tools total
-│   ├── pages.ts      # Rich page editing with markdown support
-│   ├── assets.ts     # Presigned file uploads
-│   ├── work-items.ts # Issues + comments + links + activity
-│   └── ...
+├── index.ts            # MCP server bootstrap (stdio transport)
+├── config.ts           # Zod-validated env config
+├── client.ts           # Dual-auth HTTP client (v1 API key + session cookies + presigned uploads)
+├── tools/              # 11 tool modules, 51 tools total
+│   ├── pages.ts        # Rich page editing with markdown support
+│   ├── assets.ts       # Presigned file uploads to MinIO/S3
+│   ├── work-items.ts   # Issues + comments + links + activity
+│   ├── customization.ts # Instance, workspace, and user profile management
+│   ├── projects.ts     # Project CRUD
+│   ├── modules.ts      # Module management
+│   ├── cycles.ts       # Cycle/sprint management
+│   ├── states.ts       # Workflow states
+│   ├── labels.ts       # Label management
+│   ├── members.ts      # Member queries
+│   └── utility.ts      # Auth status diagnostics
 └── utils/
-    ├── html.ts       # Markdown → Plane HTML + editor class injection
-    ├── errors.ts     # Error formatting for MCP responses
-    └── logger.ts     # Stderr logger
+    ├── html.ts         # Markdown → Plane HTML + editor class injection
+    ├── errors.ts       # Error formatting for MCP responses
+    └── logger.ts       # Stderr logger
 ```
 
 ## Requirements
