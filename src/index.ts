@@ -25,7 +25,7 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  logger.info('Plane MCP server running on stdio (43 tools)');
+  logger.info('Plane MCP server running on stdio (51 tools)');
 }
 
 main().catch((error) => {
