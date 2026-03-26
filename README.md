@@ -1,5 +1,11 @@
 # Plane MCP Server
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/philipvanlewis/plane-mcp-server)](https://github.com/philipvanlewis/plane-mcp-server/releases)
+[![MCP Tools](https://img.shields.io/badge/MCP_Tools-51-3b82f6)](https://modelcontextprotocol.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6)](https://www.typescriptlang.org/)
+[![Plane CE](https://img.shields.io/badge/Plane_CE-Compatible-22c55e)](https://plane.so/)
+
 A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server for [Plane CE](https://plane.so/) — the open-source project management tool.
 
 **51 tools** covering pages, assets, work items, projects, modules, cycles, labels, states, members, and instance/workspace customization.
