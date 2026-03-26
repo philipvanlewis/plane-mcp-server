@@ -1,0 +1,39 @@
+{
+  "name": "plane-mcp-server",
+  "version": "0.1.0",
+  "description": "A comprehensive MCP server for Plane CE — rich page editing, image uploads, work items, modules, cycles, and more.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "plane-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "plane",
+    "plane-ce",
+    "model-context-protocol",
+    "project-management"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "marked": "^15.0.0",
+    "mime-types": "^2.1.35",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
