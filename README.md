@@ -2,13 +2,13 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/v/release/philipvanlewis/plane-mcp-server)](https://github.com/philipvanlewis/plane-mcp-server/releases)
-[![MCP Tools](https://img.shields.io/badge/MCP_Tools-51-3b82f6)](https://modelcontextprotocol.io/)
+[![MCP Tools](https://img.shields.io/badge/MCP_Tools-56-3b82f6)](https://modelcontextprotocol.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6)](https://www.typescriptlang.org/)
 [![Plane CE](https://img.shields.io/badge/Plane_CE-Compatible-22c55e)](https://plane.so/)
 
 A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server for [Plane CE](https://plane.so/) — the open-source project management tool.
 
-**51 tools** covering pages, assets, work items, projects, modules, cycles, labels, states, members, and instance/workspace customization.
+**56 tools** covering pages, assets, work items, projects, modules, cycles, labels, states, members, invitations, and instance/workspace customization.
 
 ## Key Features
 
@@ -18,6 +18,7 @@ A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP)
 - **Content append** — Add to existing pages without replacing everything
 - **Full CRUD** — Complete management for work items, projects, modules, cycles, labels, and states
 - **Comments & activity** — Add comments to issues, view activity history
+- **Member management** — Invite users, manage workspace/project membership, control roles (Guest/Viewer/Member/Admin)
 - **Instance & workspace customization** — Manage instance config, workspace settings, logo uploads, user profiles
 - **Dual auth** — v1 API key for public endpoints + session auth for internal APIs (pages, assets, customization)
 
@@ -64,7 +65,7 @@ Add to your `.mcp.json`:
 }
 ```
 
-## Tools (51)
+## Tools (56)
 
 ### Pages (9)
 | Tool | Description |
@@ -147,6 +148,11 @@ Add to your `.mcp.json`:
 | `plane-label-delete` | Delete a label |
 | `plane-member-list` | List project members |
 | `plane-workspace-member-list` | List workspace members |
+| `plane-workspace-invite` | Invite a user to the workspace by email |
+| `plane-workspace-invitation-list` | List pending workspace invitations |
+| `plane-workspace-invitation-delete` | Revoke a pending workspace invitation |
+| `plane-project-member-add` | Add a workspace member to a project |
+| `plane-project-member-remove` | Remove a member from a project |
 | `plane-auth-status` | Check v1 API + session auth status |
 
 ## How Content Formatting Works
